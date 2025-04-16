@@ -1,45 +1,53 @@
-
-"use client"
-import Image from "next/image";
-
-import { useEffect, useState } from "react";
+'use client';
+import { useState } from "react";
 
 export default function Home() {
+  const [showMessage, setShowMessage] = useState(false);
 
-  interface ProductData {
-    data: Array<{ id: number; attributes: any }>;
-  }
+  const handleClick = () => {
+    setShowMessage(true);
+  };
 
-  const [data, setData] = useState<ProductData | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://blessed-books-6bae6d42bb.strapiapp.com/api/products");
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    console.log(data?.data[1]);
-    fetchData();
-  }, []);
-  if (data) {
-    console.log(data.data [0]);
-  }
   return (
-
-
-
-  <div>
-  {data?.data.map((product) => (
-    <div key={product.id}>
-      <h2>{product.id}</h2>
-      {/* <p>{product.attributes.description}</p>
-      <p>Price: ${product.attributes.price}</p> */}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        backgroundImage: "url('https://source.unsplash.com/1600x900/?romantic')",
+        backgroundSize: "cover",
+        color: "#fff",
+        textAlign: "center",
+        padding: "20px",
+      }}
+    >
+      <h1 style={{ fontSize: "3rem", marginBottom: "20px" }}>
+        Hey Love ❤️
+      </h1>
+      <p style={{ fontSize: "1.5rem", marginBottom: "30px" }}>
+        You make my world brighter every single day!
+      </p>
+      <button
+        onClick={handleClick}
+        style={{
+          padding: "10px 20px",
+          fontSize: "1rem",
+          backgroundColor: "#ff69b4",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Click for a Surprise!
+      </button>
+      {showMessage && (
+        <p style={{ marginTop: "20px", fontSize: "1.5rem" }}>
+          🌹 You are the most amazing person in my life! 🌟
+        </p>
+      )}
     </div>
-  ))}
-  </div>
   );
 }
